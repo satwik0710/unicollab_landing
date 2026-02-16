@@ -23,14 +23,14 @@ function MarketplacePreview() {
 
       {/* Carousel Container */}
       <div className="relative max-w-7xl mx-auto px-6 mb-12 z-10">
-        <ThreeDImageCarousel 
-            slides={slides} 
-            itemCount={5} 
-            autoplay={true} 
-            delay={5}
+        <ThreeDImageCarousel
+          slides={slides}
+          itemCount={5}
+          autoplay={true}
+          delay={2}
         />
       </div>
-      
+
       {/* View All CTA */}
       <div className="text-center mt-8 relative z-10">
         <button className="btn-ghost border border-white/20 text-slate-300 hover:text-[var(--primary)] hover:border-[var(--primary)]/50 hover:bg-[var(--primary)]/10 px-8 py-3 text-base group">

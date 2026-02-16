@@ -101,11 +101,12 @@ function CoreModules() {
   useEffect(() => {
     if (window.Lenis) {
       // Initialize Lenis with snappier settings to reduce perceived latency
+      // Initialize Lenis with smoother settings
       const lenis = new window.Lenis({
-        duration: 0.8, // Reduced from default (usually 1.2s) for faster response
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        // generate: true, // legacy
-        // smooth: true // legacy
+        duration: 2.0, // Increased for smoother, more fluid scrolling
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Keep exponential easing but longer duration
+        smoothWheel: true,
+        wheelMultiplier: 1,
       });
 
       function raf(time) {
