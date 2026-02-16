@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniCollab - Where ideas meet talent</title>
+    <meta name="description" content="Connect, collaborate, and innovate with students across your university campus.">
+    <meta name="keywords" content="university collaboration, student projects, campus networking, academic innovation">
+    <meta property="og:title" content="UniCollab">
+    <meta property="og:description" content="Where ideas meet talent. Transform how students collaborate.">
+    <meta name="twitter:title" content="UniCollab">
+    <meta name="twitter:description" content="Where ideas meet talent. Transform how students collaborate.">
+
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react@18/umd/react.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://resource.trickle.so/vendor_lib/unpkg/lucide-static@0.516.0/font/lucide.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
+    <!-- Simplex Noise for Wave Background -->
+    <script src="https://unpkg.com/simplex-noise@2.4.0/simplex-noise.js"></script>
+    <script>
+      const ChartJS = window.Chart;
+    </script>
+
+    <style type="text/tailwindcss">
+    @layer theme {
+        :root {
+            /* Dark Mode Palette (Global) */
+            --bg-page: #020617; /* Slate 950 */
+            --bg-card: #1e293b; /* Slate 800 */
+            --primary: #ee6c4d; /* Burnt Orange */
+            --primary-hover: #d55639;
+            --text-main: #f8fafc; /* Slate 50 */
+            --text-muted: #94a3b8; /* Slate 400 */
+            --accent: #fdba74; /* Orange 300 */
+            --white: #ffffff; /* White for headings */
+            --black: #000000;
+            --real-white: #ffffff; 
+        }
+    }
+
+    @layer base {
+        body {
+            @apply bg-[var(--bg-page)] text-[var(--text-main)] antialiased;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            @apply tracking-tight font-semibold text-[var(--white)];
+        }
+    }
+
+    @layer components {
+        .glass-panel {
+            @apply backdrop-blur-md border;
+            background-color: rgba(30, 41, 59, 0.7); /* Darker glass */
+            border-color: rgba(148, 163, 184, 0.1);
+        }
+        .glass-card {
+            @apply backdrop-blur-sm border transition-all duration-300;
+            background-color: rgba(30, 41, 59, 0.4);
+            border-color: rgba(148, 163, 184, 0.1);
+        }
+        .glass-card:hover {
+            border-color: color-mix(in srgb, var(--primary), transparent 50%);
+            background-color: rgba(30, 41, 59, 0.6);
+        }
+        
+        .btn-primary {
+            @apply bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-[var(--real-white)] px-6 py-2.5 rounded-lg font-medium transition-all shadow-lg;
+            box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--primary), transparent 80%), 0 4px 6px -4px color-mix(in srgb, var(--primary), transparent 80%);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 20px 25px -5px color-mix(in srgb, var(--primary), transparent 60%), 0 8px 10px -6px color-mix(in srgb, var(--primary), transparent 60%);
+        }
+
+        .btn-ghost {
+            @apply text-[var(--text-muted)] px-4 py-2 rounded-lg transition-colors;
+        }
+        .btn-ghost:hover {
+            color: var(--primary);
+            background-color: color-mix(in srgb, var(--primary), transparent 90%);
+        }
+
+        .gradient-text {
+            @apply bg-clip-text text-transparent bg-gradient-to-r from-[var(--primary)] to-[var(--accent)];
+        }
+
+        /* --- Cascade Slider Styles --- */
+        .cascade-slider_container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            z-index: 20; 
+            user-select: none;
+            -webkit-user-select: none; 
+            touch-action: pan-y;
+        }
+
+        .cascade-slider_slides {
+            position: relative;
+            height: 100%; 
+        }
+
+        .cascade-slider_item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%) scale(0.3); 
+            transition: all 1s ease; 
+            opacity: 0;
+            z-index: 1; 
+            cursor: grab; 
+        }
+        .cascade-slider_item.now {
+            cursor: default;
+        }
+        .cascade-slider_item:active {
+            cursor: grabbing;
+        }
+
+        /* Slide Positioning Classes */
+        .cascade-slider_item.next {
+            left: 50%;
+            transform: translateY(-50%) translateX(-120%) scale(0.6);
+            opacity: 1;
+            z-index: 4; 
+        }
+        .cascade-slider_item.prev {
+            left: 50%;
+            transform: translateY(-50%) translateX(20%) scale(0.6);
+            opacity: 1;
+            z-index: 4; 
+        }
+        .cascade-slider_item.now {
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%) scale(1);
+            opacity: 1;
+            z-index: 5; 
+        }
+
+        /* Arrows */
+        .cascade-slider_arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            cursor: pointer;
+            z-index: 6; 
+            transform: translate(0, -50%);
+            width: 40px; 
+            height: 40px; 
+            transition: all 0.3s ease;
+        }
+
+        /* Arrow Positioning Fix */
+        @media screen and (max-width: 575px) {
+            .cascade-slider_arrow-left { left: 5px; }
+            .cascade-slider_arrow-right { right: 5px; }
+        }
+        @media screen and (min-width: 576px) {
+            .cascade-slider_arrow-left { left: -4%; }
+            .cascade-slider_arrow-right { right: -4%; }
+        }
+
+        /* Images */
+        .cascade-slider_slides img {
+            max-width: 150px;
+            height: auto; 
+            border-radius: 20px;
+            display: block;
+            transition: filter 1s ease;
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.2);
+        }
+        
+        .cascade-slider_item:not(.now) img {
+            filter: grayscale(0.6) brightness(0.9);
+        }
+        
+        /* Media Queries */
+        @media screen and (min-width: 414px) {
+            .cascade-slider_container { height: 40vh; }
+            .cascade-slider_slides img { max-width: 200px; }
+        }
+        @media screen and (min-width: 576px) {
+            .cascade-slider_container { height: 60vh; }
+            .cascade-slider_slides img { max-width: 270px; }
+        }
+        @media screen and (min-width: 768px) {
+            .cascade-slider_item.next { transform: translateY(-50%) translateX(-125%) scale(0.6); }
+            .cascade-slider_item.prev { transform: translateY(-50%) translateX(25%) scale(0.6); }
+            .cascade-slider_slides img { max-width: 250px; }
+        }
+        @media screen and (min-width: 991px) {
+            .cascade-slider_item.next { transform: translateY(-50%) translateX(-115%) scale(0.55); z-index: 4; }
+            .cascade-slider_item.prev { transform: translateY(-50%) translateX(15%) scale(0.55); z-index: 4; }
+            .cascade-slider_item.next2 { transform: translateY(-50%) translateX(-150%) scale(0.37); z-index: 1; }
+            .cascade-slider_item.prev2 { transform: translateY(-50%) translateX(50%) scale(0.37); z-index: 2; }
+            .cascade-slider_slides img { max-width: 300px; }
+            .cascade-slider_container { height: 37vh; }
+        }
+        @media screen and (min-width: 1100px) {
+            .cascade-slider_item.next { transform: translateY(-50%) translateX(-130%) scale(0.55); }
+            .cascade-slider_item.prev { transform: translateY(-50%) translateX(30%) scale(0.55); }
+            .cascade-slider_item.next2 { transform: translateY(-50%) translateX(-180%) scale(0.37); }
+            .cascade-slider_item.prev2 { transform: translateY(-50%) translateX(80%) scale(0.37); }
+            .cascade-slider_slides img { max-width: 350px; }
+        }
+    }
+
+    @layer utilities {
+        .animation-delay-200 { animation-delay: 200ms; }
+        .animation-delay-400 { animation-delay: 400ms; }
+    }
+    </style>
+
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Utilities -->
+    <script type="text/babel" src="utils/mockData.js"></script>
+
+    <!-- Components -->
+    <script type="text/babel" src="components/ui/WaveBackground.js"></script>
+    <script type="text/babel" src="components/ui/CosmicBackground.js"></script>
+    <script type="text/babel" src="components/Navbar.js"></script>
+    <script type="text/babel" src="components/Hero.js"></script>
+    <script type="text/babel" src="components/CoreModules.js"></script>
+    <script type="text/babel" src="components/ChatbotDemo.js"></script>
+    <script type="text/babel" src="components/ThreeDImageCarousel.js"></script>
+    <script type="text/babel" src="components/MarketplacePreview.js"></script>
+    <script type="text/babel" src="components/PreFooter.js"></script>
+    <script type="text/babel" src="components/Footer.js"></script>
+    
+    <!-- Main App -->
+    <script type="text/babel" src="app.js"></script>
+</body>
+</html>
