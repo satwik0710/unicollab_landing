@@ -62,21 +62,21 @@ const StickyCard = ({ i, title, description, icon, iconColor, blobClass, tags, p
           top: `calc(-5vh + ${i * 25 + 100}px)`,
         }}
         // Using "rounded-4xl" from snippet (might need tailwind config, defaulting to rounded-3xl if not)
-        className="relative -top-1/4 flex flex-col w-[90vw] max-w-4xl h-[500px] origin-top rounded-3xl overflow-hidden backdrop-blur-md bg-slate-900/80 border border-white/10 shadow-2xl"
+        className="relative -top-1/4 flex flex-col w-[90vw] max-w-4xl h-[500px] origin-top rounded-3xl overflow-hidden bg-[var(--bg-card)] border border-[var(--text-main)]/10 shadow-2xl"
       >
         <div className={`absolute rounded-full transition-all ${blobClass} group-hover:scale-110`}></div>
         <div className="relative z-10 h-full flex flex-col p-10 md:p-14">
-          <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-8 border border-white/20">
+          <div className="w-16 h-16 rounded-2xl bg-[var(--text-main)]/10 flex items-center justify-center mb-8 border border-[var(--text-main)]/20">
             <span className={`${icon} text-3xl ${iconColor}`}></span>
           </div>
-          <h3 className="text-3xl md:text-5xl font-bold mb-6 text-white">{title}</h3>
-          <p className="text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed">
+          <h3 className="text-3xl md:text-5xl font-bold mb-6 text-[var(--white)]">{title}</h3>
+          <p className="text-[var(--text-muted)] text-lg md:text-xl max-w-2xl leading-relaxed">
             {description}
           </p>
           {tags && (
             <div className="flex flex-wrap gap-3 mt-auto pt-8">
               {tags.map((tag, idx) => (
-                <span key={idx} className="text-sm font-medium px-4 py-2 rounded-full bg-black/40 text-slate-200 border border-white/10 backdrop-blur-sm">
+                <span key={idx} className="text-sm font-medium px-4 py-2 rounded-full bg-[var(--bg-page)]/80 text-[var(--text-muted)] border border-[var(--text-main)]/10 backdrop-blur-sm">
                   {tag.text}
                 </span>
               ))}
@@ -120,7 +120,7 @@ function CoreModules() {
 
   if (!Motion) {
     return (
-      <section className="py-24 text-center text-white">
+      <section className="py-24 text-center text-[var(--white)]">
         <p>Loading animations...</p>
       </section>
     );
@@ -129,8 +129,8 @@ function CoreModules() {
   return (
     <section id="modules" className="relative bg-transparent">
       <div className="md:pt-32 pb-16 text-center z-10 relative">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">The Core 5 Modules</h2>
-        <p className="text-slate-300 max-w-2xl mx-auto px-6">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--white)]">The Core 5 Modules</h2>
+        <p className="text-[var(--text-muted)] max-w-2xl mx-auto px-6">
           Everything you need to navigate the university ecosystem.
           Scroll down to explore the stack.
         </p>

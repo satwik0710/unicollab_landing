@@ -28,16 +28,16 @@
     <style type="text/tailwindcss">
     @layer theme {
         :root {
-            /* Dark Mode Palette (Global) */
-            --bg-page: #020617; /* Slate 950 */
-            --bg-card: #1e293b; /* Slate 800 */
+            /* Light Mode Palette (Global) */
+            --bg-page: #f8fafc; /* Slate 50 */
+            --bg-card: #ffffff; /* White */
             --primary: #ee6c4d; /* Burnt Orange */
             --primary-hover: #d55639;
-            --text-main: #f8fafc; /* Slate 50 */
-            --text-muted: #94a3b8; /* Slate 400 */
+            --text-main: #0f172a; /* Slate 900 */
+            --text-muted: #475569; /* Slate 600 */
             --accent: #fdba74; /* Orange 300 */
-            --white: #ffffff; /* White for headings */
-            --black: #000000;
+            --white: #0f172a; /* Make white point to dark slate for headings */
+            --black: #ffffff; /* Make black point to white */
             --real-white: #ffffff; 
         }
     }
@@ -54,17 +54,17 @@
     @layer components {
         .glass-panel {
             @apply backdrop-blur-md border;
-            background-color: rgba(30, 41, 59, 0.7); /* Darker glass */
-            border-color: rgba(148, 163, 184, 0.1);
+            background-color: rgba(255, 255, 255, 0.7); /* Lighter glass */
+            border-color: rgba(15, 23, 42, 0.1);
         }
         .glass-card {
             @apply backdrop-blur-sm border transition-all duration-300;
-            background-color: rgba(30, 41, 59, 0.4);
-            border-color: rgba(148, 163, 184, 0.1);
+            background-color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(15, 23, 42, 0.1);
         }
         .glass-card:hover {
             border-color: color-mix(in srgb, var(--primary), transparent 50%);
-            background-color: rgba(30, 41, 59, 0.6);
+            background-color: rgba(255, 255, 255, 0.6);
         }
         
         .btn-primary {

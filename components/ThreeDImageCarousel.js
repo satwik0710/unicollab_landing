@@ -180,14 +180,14 @@ function ThreeDImageCarousel({
             {total > 1 && (
                 <>
                     <span
-                        className="cascade-slider_arrow cascade-slider_arrow-left rounded-full bg-[var(--white)]/10 text-[var(--primary)] p-2 hover:bg-[var(--primary)] hover:text-white transition-colors duration-300 backdrop-blur-sm border border-[var(--text-muted)]/20 shadow-lg"
+                        className="cascade-slider_arrow cascade-slider_arrow-left rounded-full bg-[var(--white)]/10 text-[var(--primary)] p-2 hover:bg-[var(--primary)] hover:text-[var(--white)] transition-colors duration-300 backdrop-blur-sm border border-[var(--text-muted)]/20 shadow-lg"
                         onClick={(e) => { e.stopPropagation(); navigate('prev'); }}
                         data-action="prev"
                     >
                         <span className="icon-chevron-left text-2xl"></span>
                     </span>
                     <span
-                        className="cascade-slider_arrow cascade-slider_arrow-right rounded-full bg-[var(--white)]/10 text-[var(--primary)] p-2 hover:bg-[var(--primary)] hover:text-white transition-colors duration-300 backdrop-blur-sm border border-[var(--text-muted)]/20 shadow-lg"
+                        className="cascade-slider_arrow cascade-slider_arrow-right rounded-full bg-[var(--white)]/10 text-[var(--primary)] p-2 hover:bg-[var(--primary)] hover:text-[var(--white)] transition-colors duration-300 backdrop-blur-sm border border-[var(--text-muted)]/20 shadow-lg"
                         onClick={(e) => { e.stopPropagation(); navigate('next'); }}
                         data-action="next"
                     >

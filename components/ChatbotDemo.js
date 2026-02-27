@@ -22,7 +22,8 @@ function ChatbotDemo() {
   const animationProps = Motion ? {
     initial: { opacity: 0, x: 200, scale: 0.8 },
     whileInView: { opacity: 1, x: 0, scale: 1 },
-    const MotionH2 = Motion ? Motion.motion.h2 : 'h2';
+  } : {};
+  const MotionH2 = Motion ? Motion.motion.h2 : 'h2';
     const MotionP = Motion ? Motion.motion.p : 'p';
     const MotionUl = Motion ? Motion.motion.ul : 'ul';
     const MotionLi = Motion ? Motion.motion.li : 'li';
@@ -64,11 +65,11 @@ function ChatbotDemo() {
               <MotionDiv variants={itemVariants} className="inline-block px-3 py-1 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-medium mb-6 border border-[var(--primary)]/20">
                 24/7 Technical Support
               </MotionDiv>
-              <MotionH2 variants={itemVariants} className="text-3xl md:text-5xl font-bold mb-6 text-white">
+              <MotionH2 variants={itemVariants} className="text-3xl md:text-5xl font-bold mb-6 text-[var(--white)]">
                 Your always-on <br />
                 <span className="text-[var(--primary)]">Technical Mentor.</span>
               </MotionH2>
-              <MotionP variants={itemVariants} className="text-lg text-slate-300 mb-8 leading-relaxed">
+              <MotionP variants={itemVariants} className="text-lg text-[var(--text-muted)] mb-8 leading-relaxed">
                 Stuck on a bug at 2 AM? The AI Project Guide understands your project context, stack, and goals. It offers code snippets, architectural advice, and resource recommendations instantly.
               </MotionP>
 
@@ -79,7 +80,7 @@ function ChatbotDemo() {
                   "Resource library tailored to your stack",
                   "Project timeline estimation"
                 ].map((item, i) => (
-                  <MotionLi key={i} variants={itemVariants} className="flex items-center gap-3 text-slate-200">
+                  <MotionLi key={i} variants={itemVariants} className="flex items-center gap-3 text-[var(--text-muted)]">
                     <span className="icon-check text-[var(--primary)]"></span>
                     {item}
                   </MotionLi>
@@ -94,18 +95,18 @@ function ChatbotDemo() {
             {/* Right Content: Chat Interface - Extreme Fly-in */}
             <div className="w-full lg:w-1/2 perspective-1000"> {/* Added perspective if needed, though simple 2d transform works */}
               <MotionDiv
-                className="glass-panel rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-black/40 backdrop-blur-xl"
+                className="glass-panel rounded-xl overflow-hidden border border-[var(--text-main)]/10 shadow-2xl bg-[var(--bg-page)]/80 backdrop-blur-xl"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false, margin: "-100px" }} // Changed once: false
                 variants={chatBoxVariants}
               >
                 {/* Header */}
-                <div className="bg-white/5 p-4 border-b border-white/10 flex items-center gap-3">
+                <div className="bg-[var(--text-main)]/5 p-4 border-b border-[var(--text-main)]/10 flex items-center gap-3">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <div className="ml-4 text-xs text-slate-400 font-mono">AI Project Guide — v2.4.0</div>
+                  <div className="ml-4 text-xs text-[var(--text-muted)] font-mono">AI Project Guide — v2.4.0</div>
                 </div>
 
                 {/* Chat Area */}
@@ -113,8 +114,8 @@ function ChatbotDemo() {
                   {messages.map((msg, idx) => (
                     <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[85%] rounded-lg p-3 text-sm leading-relaxed ${msg.role === 'user'
-                        ? 'bg-[var(--primary)] text-white'
-                        : 'bg-white/10 text-slate-200 border border-white/10'
+                        ? 'bg-[var(--primary)] text-[var(--white)]'
+                        : 'bg-[var(--text-main)]/10 text-[var(--text-muted)] border border-[var(--text-main)]/10'
                         }`}>
                         {msg.content}
                       </div>
@@ -123,15 +124,15 @@ function ChatbotDemo() {
                 </div>
 
                 {/* Input Area */}
-                <form onSubmit={handleSend} className="p-4 bg-white/5 border-t border-white/10 flex gap-2">
+                <form onSubmit={handleSend} className="p-4 bg-[var(--text-main)]/5 border-t border-[var(--text-main)]/10 flex gap-2">
                   <input
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Ask a technical question..."
-                    className="flex-1 bg-black/20 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-[var(--primary)] placeholder-slate-500"
+                    className="flex-1 bg-[var(--bg-page)]/80 border border-[var(--text-main)]/10 rounded-lg px-4 py-2 text-sm text-[var(--white)] focus:outline-none focus:border-[var(--primary)] placeholder-slate-500"
                   />
-                  <button type="submit" className="p-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] rounded-lg text-white transition-colors">
+                  <button type="submit" className="p-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] rounded-lg text-[var(--white)] transition-colors">
                     <span className="icon-send"></span>
                   </button>
                 </form>
